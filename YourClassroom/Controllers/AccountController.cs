@@ -142,7 +142,10 @@ namespace YourClassroom.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Roles = context.Roles.ToList();
+            var roles = context.Roles.ToList();
+            roles.RemoveAll(x => x.Name == "Administrador");
+
+            ViewBag.Roles = roles;
             return View();
         }
 
