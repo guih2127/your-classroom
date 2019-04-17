@@ -1,0 +1,29 @@
+﻿@model YourClassroom.Models.Classes
+@{
+    ViewBag.Title = "Minhas Classes";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Classes/Index.css">
+</head>
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr class="headers-classes">
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Matéria</th>
+    </tr>
+    @foreach (var classe in ViewBag.Classes)
+    {
+        <tr class="info-classes">
+            <th scope="row">@classe.Id</th>
+            <td>@classe.Materia</td>
+            <td>@classe.Curso</td>
+        </tr>
+    }
+</table>
+
+<br />
+<div class="aviso-classes">
+    <p>Lembre-se, para convidar alunos para suas classes, você deve compartilhar o código da classe com eles!</p>
+</div>
