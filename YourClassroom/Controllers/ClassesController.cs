@@ -13,17 +13,30 @@ namespace YourClassroom.Controllers
     {
         private static ClasseService _classeService = new ClasseService();
         private static RoleService _roleService = new RoleService();
+        private static UserService _userService = new UserService();
 
         public ActionResult Index()
         {
+            ClasseProfessorViewModel model = new ClasseProfessorViewModel();
+
             if (User.Identity.IsAuthenticated)
             {
-                if (_roleService.GetUserRoleById(User.Identity.GetUserId()) == "Professor")
+                string userId = User.Identity.GetUserId();
+                var userRole = _roleService.GetUserRoleById(userId);
+                ViewBag.UserRole = userRole;
+                List<Classes> classes = userRole == "Professor" ? _classeService.ObterClassesPorIDProfessor(userId) : _classeService.ObterClassesPorIDAluno(userId);
+                List<ApplicationUser> professores = new List<ApplicationUser>();
+
+                foreach (var classe in classes)
                 {
-                    ViewBag.Classes = _classeService.ObterClassesPorIDProfessor(User.Identity.GetUserId());
+                    ApplicationUser professor = _userService.GetUserById(classe.ID_Professor);
+                    professores.Add(professor);
                 }
+
+                model.Classes = classes;
+                model.Professores = professores;
             }
-            return View();
+            return View(model);
         }
     }
 }

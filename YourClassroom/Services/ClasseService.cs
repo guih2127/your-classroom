@@ -21,5 +21,16 @@ namespace YourClassroom.Services
             List<Classes> classes = context.Classes.Where(c => c.ID_Professor == idProfessor).ToList();
             return classes;
         }
+
+        public List<Classes> ObterClassesPorIDAluno(string idAluno)
+        {
+            List<Classes> classes =
+                (from classe in context.Classes
+                join rl in context.RLClassesAlunos on classe.Id equals rl.ID_Classe
+                where rl.ID_Aluno == idAluno
+                select classe).ToList();
+
+            return classes;
+        }
     }
 }

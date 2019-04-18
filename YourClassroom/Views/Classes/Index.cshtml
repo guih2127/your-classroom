@@ -1,4 +1,4 @@
-﻿@model YourClassroom.Models.Classes
+﻿@model YourClassroom.Models.ClasseProfessorViewModel
 @{
     ViewBag.Title = "Minhas Classes";
 }
@@ -12,18 +12,33 @@
         <th scope="col">Código</th>
         <th scope="col">Nome</th>
         <th scope="col">Matéria</th>
+        @if (ViewBag.UserRole == "Aluno")
+        {
+            <th scope="col">Professor</th>
+        }
     </tr>
-    @foreach (var classe in ViewBag.Classes)
+    @for (int i = 0; i < Model.Classes.Count(); i++)
     {
         <tr class="info-classes">
-            <th scope="row">@classe.Id</th>
-            <td>@classe.Materia</td>
-            <td>@classe.Curso</td>
+            <th scope="row">@Model.Classes[i].Id</th>
+            <td>@Model.Classes[i].Materia</td>
+            <td>@Model.Classes[i].Curso</td>
+            @if (ViewBag.UserRole == "Aluno")
+            {
+                <td>@Model.Professores[i].FirstName  @Model.Professores[i].LastName</td>
+            }
         </tr>
     }
 </table>
 
 <br />
 <div class="aviso-classes">
-    <p>Lembre-se, para convidar alunos para suas classes, você deve compartilhar o código da classe com eles!</p>
+    @if (ViewBag.UserRole == "Professor")
+    {
+        <p>Lembre-se, para convidar alunos para suas classes, você deve compartilhar o código da classe com eles!</p>
+    }
+    else if (ViewBag.UserRole == "Aluno")
+    {
+        <p>Para entrar em classes de professores específicos, você precisa obter o código da classe e solicitar sua entrada!</p>
+    }
 </div>
