@@ -31,6 +31,7 @@ namespace YourClassroom.Controllers
                 foreach (var classe in classes)
                 {
                     ApplicationUser professor = _userService.GetUserById(classe.ID_Professor);
+                    classe.Curso = _cursoService.ObterCursoPorId(classe.Curso_Id);
                     professores.Add(professor);
                 }
 
@@ -47,10 +48,20 @@ namespace YourClassroom.Controllers
             return View(model);
         }
 
+        [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Cursos = _cursoService.ObterTodosIdsCurso();
-            return View();
+            string userId = User.Identity.GetUserId();
+            if (_roleService.GetUserRoleById(userId) == "Professor")
+            {
+                ViewBag.Cursos = _cursoService.ObterTodosIdsCurso();
+                return View();
+            }
+            else
+            {
+                TempData["Mensagem"] = "Infelizmente um usuário com perfil de Aluno não pode criar classes.";
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -59,6 +70,30 @@ namespace YourClassroom.Controllers
             classe.ID_Professor = User.Identity.GetUserId();
             TempData["Mensagem"] = _classeService.Inserir(classe);
 
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            string userId = User.Identity.GetUserId();
+            Classes classe = _classeService.ObterClassePorId(id);
+
+            if (classe.ID_Professor == userId)
+            {
+                ViewBag.Cursos = _cursoService.ObterTodosIdsCurso();
+                return View(classe);
+            }
+            else
+            {
+                TempData["Mensagem"] = "Você não tem permissão para acessar essa página!";
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, Classes classe)
+        {
+            TempData["Mensagem"] = _classeService.Editar(id, classe);
             return RedirectToAction("Index");
         }
     }

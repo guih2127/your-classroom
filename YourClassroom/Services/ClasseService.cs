@@ -33,17 +33,46 @@ namespace YourClassroom.Services
             return classes;
         }
 
+        public Classes ObterClassePorId(int id)
+        {
+            Classes classe = context.Classes.Where(c => c.Id == id).First();
+            return classe;
+        }
+
         public string Inserir(Classes classe)
         {
-            try
+            using (var context = new YourClassroomEntities())
             {
-                context.Classes.Add(classe);
-                context.SaveChanges();
-                return "Classe inserida com sucesso!";
+                try
+                {
+                    context.Classes.Add(classe);
+                    context.SaveChanges();
+                    return "Classe criada com sucesso. Comece a já a divulgá-la para seus alunos!";
+                }
+                catch (Exception e)
+                {
+                    return "Ocorreu um erro!" + e.Message;
+                }
             }
-            catch (Exception e)
+        }
+
+        public string Editar(int id, Classes classe)
+        {
+            using (var context = new YourClassroomEntities())
             {
-                return "Ocorreu um erro!" + e.Message;
+                try
+                {
+                    Classes classeAtual = ObterClassePorId(id);
+                    classeAtual.Materia = classe.Materia;
+                    classeAtual.Periodo = classe.Periodo;
+                    classeAtual.Curso_Id = classe.Curso_Id;
+                    context.SaveChanges();
+                    return "Classe editada com sucesso!";
+                }
+                catch (Exception e)
+                {
+                    return "Ocorreu um erro!" + e.Message;
+                }
             }
         }
     }

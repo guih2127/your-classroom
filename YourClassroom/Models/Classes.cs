@@ -24,6 +24,7 @@ namespace YourClassroom.Models
         public string ID_Professor { get; set; }
         public int Id { get; set; }
         public int Curso_Id { get; set; }
+        public int Periodo { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Curso Curso { get; set; }

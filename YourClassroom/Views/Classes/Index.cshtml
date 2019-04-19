@@ -14,9 +14,14 @@
         <th scope="col">Código</th>
         <th scope="col">Matéria</th>
         <th scope="col">Curso</th>
+        <th scope="col">Período</th>
         @if (ViewBag.UserRole == "Aluno")
         {
             <th scope="col">Professor</th>
+        }
+        else if (ViewBag.UserRole == "Professor")
+        {
+            <th scope="col">Ações</th>
         }
     </tr>
     @for (int i = 0; i < Model.Classes.Count(); i++)
@@ -25,9 +30,14 @@
             <th scope="row">@Model.Classes[i].Id</th>
             <td>@Model.Classes[i].Materia</td>
             <td>@Model.Classes[i].Curso.Nome</td>
+            <td>@Model.Classes[i].Periodo</td>
             @if (ViewBag.UserRole == "Aluno")
             {
                 <td>@Model.Professores[i].FirstName  @Model.Professores[i].LastName</td>
+            }
+            @if (ViewBag.UserRole == "Professor")
+            {
+                <td>@Html.ActionLink("Editar", "Edit", new { id = Model.Classes[i].Id } )</td>
             }
         </tr>
     }

@@ -62,10 +62,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Materia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Materia" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ID_Professor" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Curso_Id" Type="int" Nullable="false" />
+          <Property Name="Periodo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -329,10 +330,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Materia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Materia" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ID_Professor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Curso_Id" Type="Int32" Nullable="false" />
+          <Property Name="Periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.ID_Professor" FromRole="Classes" ToRole="AspNetUsers" />
           <NavigationProperty Name="Curso" Relationship="Model.FK_CursoClasse" FromRole="Classes" ToRole="Curso" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToClasses" FromRole="Classes" ToRole="RLClassesAlunos" />
@@ -494,6 +496,7 @@
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="Model.Classes">
               <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
                 <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ID_Professor" ColumnName="ID_Professor" />
