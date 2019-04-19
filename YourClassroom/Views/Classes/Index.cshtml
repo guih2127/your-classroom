@@ -6,12 +6,14 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Classes/Index.css">
 </head>
 <h2>@ViewBag.Title</h2>
+<h5>@ViewBag.Mensagem</h5>
+<br />
 
 <table class="table">
     <tr class="headers-classes">
         <th scope="col">Código</th>
-        <th scope="col">Nome</th>
         <th scope="col">Matéria</th>
+        <th scope="col">Curso</th>
         @if (ViewBag.UserRole == "Aluno")
         {
             <th scope="col">Professor</th>
@@ -22,7 +24,7 @@
         <tr class="info-classes">
             <th scope="row">@Model.Classes[i].Id</th>
             <td>@Model.Classes[i].Materia</td>
-            <td>@Model.Classes[i].Curso</td>
+            <td>@Model.Classes[i].Curso.Nome</td>
             @if (ViewBag.UserRole == "Aluno")
             {
                 <td>@Model.Professores[i].FirstName  @Model.Professores[i].LastName</td>
@@ -36,6 +38,9 @@
     @if (ViewBag.UserRole == "Professor")
     {
         <p>Lembre-se, para convidar alunos para suas classes, você deve compartilhar o código da classe com eles!</p>
+        <div class="criar-classe">
+            <p>@Html.ActionLink("Criar nova Classe", "Create")</p>
+        </div>
     }
     else if (ViewBag.UserRole == "Aluno")
     {

@@ -64,8 +64,18 @@
           </Key>
           <Property Name="Materia" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Professor" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Curso" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Curso_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Duracao" Type="float" Nullable="false" />
+          <Property Name="Area" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="nchar" MaxLength="400" Nullable="false" />
         </EntityType>
         <EntityType Name="RLClassesAlunos">
           <Key>
@@ -75,6 +85,18 @@
           <Property Name="ID_Classe" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK_CursoClasse">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="Curso_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -174,7 +196,12 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RLClassesAlunos" EntityType="Self.RLClassesAlunos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CursoClasse" Association="Self.FK_CursoClasse">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -214,6 +241,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Model.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Model.AspNetUsers" />
           <EntitySet Name="Classes" EntityType="Model.Classes" />
+          <EntitySet Name="Curso" EntityType="Model.Curso" />
           <EntitySet Name="RLClassesAlunos" EntityType="Model.RLClassesAlunos" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -229,6 +257,10 @@
           </AssociationSet>
           <AssociationSet Name="ID_Professor" Association="Model.ID_Professor">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CursoClasse" Association="Model.FK_CursoClasse">
+            <End Role="Curso" EntitySet="Curso" />
             <End Role="Classes" EntitySet="Classes" />
           </AssociationSet>
           <AssociationSet Name="FK_RLClassesAlunos_ToClasses" Association="Model.FK_RLClassesAlunos_ToClasses">
@@ -299,10 +331,22 @@
           </Key>
           <Property Name="Materia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_Professor" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Curso" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Curso_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.ID_Professor" FromRole="Classes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Curso" Relationship="Model.FK_CursoClasse" FromRole="Classes" ToRole="Curso" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToClasses" FromRole="Classes" ToRole="RLClassesAlunos" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Duracao" Type="Double" Nullable="false" />
+          <Property Name="Area" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="400" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Classes" Relationship="Model.FK_CursoClasse" FromRole="Curso" ToRole="Classes" />
         </EntityType>
         <EntityType Name="RLClassesAlunos">
           <Key>
@@ -363,6 +407,18 @@
             </Principal>
             <Dependent Role="Classes">
               <PropertyRef Name="ID_Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CursoClasse">
+          <End Type="Model.Curso" Role="Curso" Multiplicity="1" />
+          <End Type="Model.Classes" Role="Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="Curso_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,10 +494,21 @@
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="Model.Classes">
               <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="Curso_Id" ColumnName="Curso_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Curso" ColumnName="Curso" />
                 <ScalarProperty Name="ID_Professor" ColumnName="ID_Professor" />
                 <ScalarProperty Name="Materia" ColumnName="Materia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="Model.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Duracao" ColumnName="Duracao" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

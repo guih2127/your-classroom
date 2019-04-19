@@ -12,22 +12,21 @@ namespace YourClassroom.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Classes
+    public partial class Curso
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Classes()
+        public Curso()
         {
-            this.RLClassesAlunos = new HashSet<RLClassesAlunos>();
+            this.Classes = new HashSet<Classes>();
         }
     
-        public string Materia { get; set; }
-        public string ID_Professor { get; set; }
         public int Id { get; set; }
-        public int Curso_Id { get; set; }
+        public string Nome { get; set; }
+        public double Duracao { get; set; }
+        public string Area { get; set; }
+        public string Descricao { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Curso Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RLClassesAlunos> RLClassesAlunos { get; set; }
+        public virtual ICollection<Classes> Classes { get; set; }
     }
 }

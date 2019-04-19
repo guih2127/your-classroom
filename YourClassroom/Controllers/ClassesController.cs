@@ -14,6 +14,7 @@ namespace YourClassroom.Controllers
         private static ClasseService _classeService = new ClasseService();
         private static RoleService _roleService = new RoleService();
         private static UserService _userService = new UserService();
+        private static CursoService _cursoService = new CursoService();
 
         public ActionResult Index()
         {
@@ -35,8 +36,30 @@ namespace YourClassroom.Controllers
 
                 model.Classes = classes;
                 model.Professores = professores;
+
+                ViewBag.Mensagem = TempData["Mensagem"];
             }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(model);
+        }
+
+        public ActionResult Create()
+        {
+            ViewBag.Cursos = _cursoService.ObterTodosIdsCurso();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Classes classe)
+        {
+            classe.ID_Professor = User.Identity.GetUserId();
+            TempData["Mensagem"] = _classeService.Inserir(classe);
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -30,6 +30,7 @@ namespace YourClassroom.Models
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Classes> Classes { get; set; }
+        public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<RLClassesAlunos> RLClassesAlunos { get; set; }
     }
 }

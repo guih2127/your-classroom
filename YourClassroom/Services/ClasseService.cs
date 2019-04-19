@@ -32,5 +32,19 @@ namespace YourClassroom.Services
 
             return classes;
         }
+
+        public string Inserir(Classes classe)
+        {
+            try
+            {
+                context.Classes.Add(classe);
+                context.SaveChanges();
+                return "Classe inserida com sucesso!";
+            }
+            catch (Exception e)
+            {
+                return "Ocorreu um erro!" + e.Message;
+            }
+        }
     }
 }
