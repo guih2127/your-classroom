@@ -210,6 +210,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AwModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassesViewModel.cs" />
     <Compile Include="Models\ClasseProfessorViewModel.cs" />
     <Compile Include="Models\Classes.cs">
       <DependentUpon>AwModel.tt</DependentUpon>
@@ -339,6 +340,7 @@
     <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Classes\Create.cshtml" />
     <Content Include="Views\Classes\Edit.cshtml" />
+    <Content Include="Views\Classes\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

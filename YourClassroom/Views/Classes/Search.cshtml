@@ -1,0 +1,37 @@
+﻿@model IList<YourClassroom.Models.Classes>
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Pesquisa de Classes</h2>
+<br />
+
+<table class="table">
+    <tr class="headers-classes">
+        <th scope="col">Código</th>
+        <th scope="col">Matéria</th>
+        <th scope="col">Curso</th>
+        <th scope="col">Período</th>
+        <th scope="col">Ações</th>
+    </tr>
+    @if (Model != null)
+    {
+
+        foreach (var classe in Model)
+        {
+            <tr class="info-classes">
+                <th scope="row">@classe.Id</th>
+                <td>@classe.Materia</td>
+                <td>@classe.Curso.Nome</td>
+                <td>@classe.Periodo</td>
+                <td>@Html.ActionLink("Solicitar Entrada", "SolicitarEntrada", new { id = classe.Id })</td>
+            </tr>
+        }
+    }
+</table>
+
+<div class="return-button">
+    <a href="@Url.Action("Index", "Home")">
+        <span>Voltar</span>
+    </a>
+</div>

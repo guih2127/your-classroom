@@ -75,5 +75,16 @@ namespace YourClassroom.Services
                 }
             }
         }
+
+        public List<Classes> Pesquisar(FiltroClassesViewModel filtro)
+        {
+            List<Classes> classes = context.Classes.ToList();
+            if (filtro.ClasseId != null)
+            {
+                classes = classes.Where(c => c.Id == filtro.ClasseId).ToList();
+            }
+
+            return classes;
+        }
     }
 }

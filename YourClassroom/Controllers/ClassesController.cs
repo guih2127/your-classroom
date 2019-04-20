@@ -96,5 +96,12 @@ namespace YourClassroom.Controllers
             TempData["Mensagem"] = _classeService.Editar(id, classe);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Search(FiltroClassesViewModel filtro)
+        {
+            List<Classes> classes =_classeService.Pesquisar(filtro);
+            return View(classes);
+        }
     }
 }

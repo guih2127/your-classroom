@@ -1,4 +1,31 @@
-﻿@{
+﻿@model YourClassroom.Models.FiltroClassesViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 <h3>@ViewBag.UserRole</h3>
+
+@if (ViewBag.UserRole == "Aluno")
+{
+    <div class="alert-link">
+        <p>Procure agora classes para entrar!</p>
+        <br />
+    </div>
+    using (Html.BeginForm("Search", "Classes"))
+    {
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Número da Classe", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClasseId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClasseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Pesquisar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+}
