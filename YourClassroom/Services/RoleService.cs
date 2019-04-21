@@ -17,14 +17,17 @@ namespace YourClassroom.Services
         }
         public string GetUserRoleById(string UserID)
         {
-            var userRoles = context.Roles.Include(r => r.Users).ToList();
+            using (var context = new YourClassroomEntities())
+            {
+                var userRoles = context.AspNetRoles.Include(r => r.AspNetUsers).ToList();
 
-            var userRole = (from r in userRoles
-                            from u in r.Users
-                            where u.UserId == UserID
-                            select r.Name).First();
+                var userRole = (from r in userRoles
+                                from u in r.AspNetUsers
+                                where u.Id == UserID
+                                select r.Name).First();
 
-            return userRole;
+                return userRole;
+            }
         }
     }
 }

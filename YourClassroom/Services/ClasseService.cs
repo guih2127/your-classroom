@@ -79,6 +79,18 @@ namespace YourClassroom.Services
         public List<Classes> Pesquisar(FiltroClassesViewModel filtro)
         {
             List<Classes> classes = context.Classes.ToList();
+
+            if (filtro.NomeProfessor != null)
+            {
+                List<AspNetUsers> professores = context.AspNetUsers.Where(p => (p.FirstName + " " + p.LastName).Contains(filtro.NomeProfessor)).ToList();
+                classes = (from c in classes
+                           join p in professores on c.ID_Professor equals p.Id
+                           select c).ToList();
+            }
+            if (filtro.NomeMateria != null)
+            {
+                classes = classes.Where(c => c.Materia == filtro.NomeMateria).ToList();
+            }
             if (filtro.ClasseId != null)
             {
                 classes = classes.Where(c => c.Id == filtro.ClasseId).ToList();

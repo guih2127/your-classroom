@@ -12,6 +12,7 @@
         <th scope="col">Matéria</th>
         <th scope="col">Curso</th>
         <th scope="col">Período</th>
+        <th scope="col">Professor</th>
         <th scope="col">Ações</th>
     </tr>
     @if (Model != null)
@@ -24,6 +25,7 @@
                 <td>@classe.Materia</td>
                 <td>@classe.Curso.Nome</td>
                 <td>@classe.Periodo</td>
+                <td>@classe.AspNetUsers.FirstName @classe.AspNetUsers.LastName</td>
                 <td>@Html.ActionLink("Solicitar Entrada", "SolicitarEntrada", new { id = classe.Id })</td>
             </tr>
         }

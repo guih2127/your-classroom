@@ -101,6 +101,14 @@ namespace YourClassroom.Controllers
         public ActionResult Search(FiltroClassesViewModel filtro)
         {
             List<Classes> classes =_classeService.Pesquisar(filtro);
+            List<ApplicationUser> professores = new List<ApplicationUser>();
+            foreach(var classe in classes)
+            {
+                var professor = _userService.GetUserById(classe.ID_Professor);
+                classe.AspNetUsers.FirstName = professor.FirstName;
+                classe.AspNetUsers.LastName = professor.LastName;
+                professores.Add(professor);
+            }
             return View(classes);
         }
     }
