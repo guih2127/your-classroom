@@ -17,6 +17,7 @@ namespace YourClassroom.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Classes()
         {
+            this.SolicitacoesEntradaClasse = new HashSet<SolicitacoesEntradaClasse>();
             this.RLClassesAlunos = new HashSet<RLClassesAlunos>();
         }
     
@@ -27,6 +28,8 @@ namespace YourClassroom.Models
         public int Periodo { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitacoesEntradaClasse> SolicitacoesEntradaClasse { get; set; }
         public virtual Curso Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RLClassesAlunos> RLClassesAlunos { get; set; }

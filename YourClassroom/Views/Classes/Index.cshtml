@@ -6,7 +6,10 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Classes/Index.css">
 </head>
 <h2>@ViewBag.Title</h2>
-<h5>@ViewBag.Mensagem</h5>
+
+<div class="notificacao-aplicacao" id="notificacao-aplicacao">
+    <h5 class="notificacao-mensagem" id="notificacao-mensagem">@ViewBag.Mensagem</h5>
+</div>
 <br />
 
 <table class="table">
@@ -56,4 +59,9 @@
     {
         <p>Para entrar em classes de professores específicos, você precisa obter o código da classe e solicitar sua entrada!</p>
     }
+</div>
+<div class="return-button">
+    <a href="@Url.Action("Index", "Home")">
+        <span>Voltar</span>
+    </a>
 </div>

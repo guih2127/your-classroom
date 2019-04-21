@@ -111,5 +111,13 @@ namespace YourClassroom.Controllers
             }
             return View(classes);
         }
+
+        public ActionResult SolicitarEntrada(int classeId)
+        {
+            string userId = User.Identity.GetUserId();
+            TempData["Mensagem"] = _classeService.SolicitarEntrada(classeId, userId);
+
+            return RedirectToAction("Index");
+        }
     }
 }

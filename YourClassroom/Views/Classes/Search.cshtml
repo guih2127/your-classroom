@@ -26,7 +26,7 @@
                 <td>@classe.Curso.Nome</td>
                 <td>@classe.Periodo</td>
                 <td>@classe.AspNetUsers.FirstName @classe.AspNetUsers.LastName</td>
-                <td>@Html.ActionLink("Solicitar Entrada", "SolicitarEntrada", new { id = classe.Id })</td>
+                <td>@Html.ActionLink("Solicitar Entrada", "SolicitarEntrada", new { classeId = classe.Id }, new { @id = "solicitar-entrada" })</td>
             </tr>
         }
     }

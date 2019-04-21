@@ -47,11 +47,11 @@ namespace YourClassroom.Services
                 {
                     context.Classes.Add(classe);
                     context.SaveChanges();
-                    return "Classe criada com sucesso. Comece a já a divulgá-la para seus alunos!";
+                    return "Sucesso! Classe criada com sucesso. Comece a já a divulgá-la para seus alunos.";
                 }
                 catch (Exception e)
                 {
-                    return "Ocorreu um erro!" + e.Message;
+                    return "Erro! Ocorreu um erro." + e.Message;
                 }
             }
         }
@@ -67,11 +67,11 @@ namespace YourClassroom.Services
                     classeAtual.Periodo = classe.Periodo;
                     classeAtual.Curso_Id = classe.Curso_Id;
                     context.SaveChanges();
-                    return "Classe editada com sucesso!";
+                    return "Sucesso! Classe editada com sucesso.";
                 }
                 catch (Exception e)
                 {
-                    return "Ocorreu um erro!" + e.Message;
+                    return "Erro! Ocorreu um erro." + e.Message;
                 }
             }
         }
@@ -97,6 +97,32 @@ namespace YourClassroom.Services
             }
 
             return classes;
+        }
+
+        public string SolicitarEntrada(int classeId, string alunoId)
+        {
+            using (var context = new YourClassroomEntities())
+            {
+                try
+                {
+                    var solicitacaoExistente = context.SolicitacoesEntradaClasse.Where(s => s.Id_Aluno == alunoId && s.Id_Classe == classeId).FirstOrDefault();
+
+                    if (solicitacaoExistente != null)
+                    {
+                        return "Erro! Você já solicitou sua entrada nessa classe! Aguarde a resposta do professor.";
+                    }
+
+                    SolicitacoesEntradaClasse solicitacao = new SolicitacoesEntradaClasse { Id_Aluno = alunoId, Id_Classe = classeId };
+                    context.SolicitacoesEntradaClasse.Add(solicitacao);
+                    context.SaveChanges();
+
+                    return "Sucesso! Solicitação enviada com sucesso. Aguarde a aprovação do professor.";
+                }
+                catch (Exception e)
+                {
+                    return "Erro! Ocorreu um erro. " + e.Message;
+                }
+            }
         }
     }
 }

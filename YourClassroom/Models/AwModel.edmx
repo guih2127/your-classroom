@@ -86,6 +86,38 @@
           <Property Name="ID_Classe" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="SolicitacoesEntradaClasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Classe" Type="int" Nullable="false" />
+          <Property Name="Id_Aluno" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Solicitac__Id_Al__634EBE90">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SolicitacoesEntradaClasse" Type="Self.SolicitacoesEntradaClasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitacoesEntradaClasse">
+              <PropertyRef Name="Id_Aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitac__Id_Cl__625A9A57">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="SolicitacoesEntradaClasse" Type="Self.SolicitacoesEntradaClasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitacoesEntradaClasse">
+              <PropertyRef Name="Id_Classe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CursoClasse">
           <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
           <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
@@ -199,6 +231,15 @@
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RLClassesAlunos" EntityType="Self.RLClassesAlunos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SolicitacoesEntradaClasse" EntityType="Self.SolicitacoesEntradaClasse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Solicitac__Id_Al__634EBE90" Association="Self.FK__Solicitac__Id_Al__634EBE90">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitac__Id_Cl__625A9A57" Association="Self.FK__Solicitac__Id_Cl__625A9A57">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
+          </AssociationSet>
           <AssociationSet Name="FK_CursoClasse" Association="Self.FK_CursoClasse">
             <End Role="Curso" EntitySet="Curso" />
             <End Role="Classes" EntitySet="Classes" />
@@ -244,6 +285,7 @@
           <EntitySet Name="Classes" EntityType="Model.Classes" />
           <EntitySet Name="Curso" EntityType="Model.Curso" />
           <EntitySet Name="RLClassesAlunos" EntityType="Model.RLClassesAlunos" />
+          <EntitySet Name="SolicitacoesEntradaClasse" EntityType="Model.SolicitacoesEntradaClasse" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -252,6 +294,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="FK__Solicitac__Id_Al__634EBE90" Association="Model.FK__Solicitac__Id_Al__634EBE90">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
+          </AssociationSet>
           <AssociationSet Name="FK_RLClassesAlunos_ToAluno" Association="Model.FK_RLClassesAlunos_ToAluno">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RLClassesAlunos" EntitySet="RLClassesAlunos" />
@@ -259,6 +305,10 @@
           <AssociationSet Name="ID_Professor" Association="Model.ID_Professor">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitac__Id_Cl__625A9A57" Association="Model.FK__Solicitac__Id_Cl__625A9A57">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
           </AssociationSet>
           <AssociationSet Name="FK_CursoClasse" Association="Model.FK_CursoClasse">
             <End Role="Curso" EntitySet="Curso" />
@@ -322,6 +372,7 @@
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="SolicitacoesEntradaClasse" Relationship="Model.FK__Solicitac__Id_Al__634EBE90" FromRole="AspNetUsers" ToRole="SolicitacoesEntradaClasse" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToAluno" FromRole="AspNetUsers" ToRole="RLClassesAlunos" />
           <NavigationProperty Name="Classes" Relationship="Model.ID_Professor" FromRole="AspNetUsers" ToRole="Classes" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
@@ -336,6 +387,7 @@
           <Property Name="Curso_Id" Type="Int32" Nullable="false" />
           <Property Name="Periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.ID_Professor" FromRole="Classes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SolicitacoesEntradaClasse" Relationship="Model.FK__Solicitac__Id_Cl__625A9A57" FromRole="Classes" ToRole="SolicitacoesEntradaClasse" />
           <NavigationProperty Name="Curso" Relationship="Model.FK_CursoClasse" FromRole="Classes" ToRole="Curso" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToClasses" FromRole="Classes" ToRole="RLClassesAlunos" />
         </EntityType>
@@ -359,6 +411,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_RLClassesAlunos_ToAluno" FromRole="RLClassesAlunos" ToRole="AspNetUsers" />
           <NavigationProperty Name="Classes" Relationship="Model.FK_RLClassesAlunos_ToClasses" FromRole="RLClassesAlunos" ToRole="Classes" />
+        </EntityType>
+        <EntityType Name="SolicitacoesEntradaClasse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Classe" Type="Int32" Nullable="false" />
+          <Property Name="Id_Aluno" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK__Solicitac__Id_Al__634EBE90" FromRole="SolicitacoesEntradaClasse" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Classes" Relationship="Model.FK__Solicitac__Id_Cl__625A9A57" FromRole="SolicitacoesEntradaClasse" ToRole="Classes" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -388,6 +450,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Solicitac__Id_Al__634EBE90">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.SolicitacoesEntradaClasse" Role="SolicitacoesEntradaClasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitacoesEntradaClasse">
+              <PropertyRef Name="Id_Aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RLClassesAlunos_ToAluno">
           <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="Model.RLClassesAlunos" Role="RLClassesAlunos" Multiplicity="*" />
@@ -409,6 +483,18 @@
             </Principal>
             <Dependent Role="Classes">
               <PropertyRef Name="ID_Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitac__Id_Cl__625A9A57">
+          <End Type="Model.Classes" Role="Classes" Multiplicity="1" />
+          <End Type="Model.SolicitacoesEntradaClasse" Role="SolicitacoesEntradaClasse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SolicitacoesEntradaClasse">
+              <PropertyRef Name="Id_Classe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -521,6 +607,15 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ID_Classe" ColumnName="ID_Classe" />
                 <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SolicitacoesEntradaClasse">
+            <EntityTypeMapping TypeName="Model.SolicitacoesEntradaClasse">
+              <MappingFragment StoreEntitySet="SolicitacoesEntradaClasse">
+                <ScalarProperty Name="Id_Aluno" ColumnName="Id_Aluno" />
+                <ScalarProperty Name="Id_Classe" ColumnName="Id_Classe" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

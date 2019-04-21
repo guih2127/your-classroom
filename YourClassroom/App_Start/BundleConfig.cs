@@ -29,6 +29,9 @@ namespace YourClassroom
             bundles.Add(new StyleBundle("~/bundles/mask").Include(
                       "~/Scripts/jquery.mask.js",
                       "~/Scripts/jquery.mask.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                      "~/Scripts/app.js"));
         }
     }
 }

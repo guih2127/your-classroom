@@ -32,5 +32,6 @@ namespace YourClassroom.Models
         public virtual DbSet<Classes> Classes { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<RLClassesAlunos> RLClassesAlunos { get; set; }
+        public virtual DbSet<SolicitacoesEntradaClasse> SolicitacoesEntradaClasse { get; set; }
     }
 }
