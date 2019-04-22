@@ -1,0 +1,30 @@
+﻿@model IList<YourClassroom.Models.SolicitacoesEntradaClasse>
+@{
+    ViewBag.Title = "Solicitacoes";
+}
+<h2>Solicitações</h2>
+<h5>Solicitações de entrada nas suas Classes</h5>
+<div class="notificacao-aplicacao" id="notificacao-aplicacao">
+    <h5 class="notificacao-mensagem" id="notificacao-mensagem">@ViewBag.Mensagem</h5>
+</div>
+<br />
+<table class="table">
+    <tr class="headers-classes">
+        <th scope="col">Código</th>
+        <th scope="col">Matéria</th>
+        <th scope="col">Aluno</th>
+        <th scope="col">Ações</th>
+    </tr>
+    @foreach (var solicitacao in Model)
+    {
+        <tr class="info-classes">
+            <th scope="col">@solicitacao.Classes.Id</th>
+            <td>@solicitacao.Classes.Materia</td>
+            <td>@solicitacao.AspNetUsers.FirstName @solicitacao.AspNetUsers.LastName</td>
+            <td>
+                @Html.ActionLink("Aceitar", "Aceitar", new { id = solicitacao.Id }) - 
+                @Html.ActionLink("Recusar", "Recusar", new { id = solicitacao.Id })
+            </td>
+        </tr>
+    }
+</table>

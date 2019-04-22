@@ -15,6 +15,7 @@ namespace YourClassroom.Controllers
         private static RoleService _roleService = new RoleService();
         private static UserService _userService = new UserService();
         private static CursoService _cursoService = new CursoService();
+        private static HomeController _home = new HomeController();
 
         public ActionResult Index()
         {
@@ -52,6 +53,7 @@ namespace YourClassroom.Controllers
         public ActionResult Create()
         {
             string userId = User.Identity.GetUserId();
+            var userRole = _roleService.GetUserRoleById(userId);
             if (_roleService.GetUserRoleById(userId) == "Professor")
             {
                 ViewBag.Cursos = _cursoService.ObterTodosIdsCurso();
@@ -64,6 +66,7 @@ namespace YourClassroom.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Classes classe)
         {
@@ -73,9 +76,11 @@ namespace YourClassroom.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             string userId = User.Identity.GetUserId();
+            var userRole = _roleService.GetUserRoleById(userId);
             Classes classe = _classeService.ObterClassePorId(id);
 
             if (classe.ID_Professor == userId)
@@ -90,6 +95,7 @@ namespace YourClassroom.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(int id, Classes classe)
         {
@@ -97,10 +103,14 @@ namespace YourClassroom.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Search(FiltroClassesViewModel filtro)
         {
-            List<Classes> classes =_classeService.Pesquisar(filtro);
+            string userId = User.Identity.GetUserId();
+            var userRole = _roleService.GetUserRoleById(userId);
+
+            List<Classes> classes = _classeService.Pesquisar(filtro);
             List<ApplicationUser> professores = new List<ApplicationUser>();
             foreach(var classe in classes)
             {
@@ -118,6 +128,16 @@ namespace YourClassroom.Controllers
             TempData["Mensagem"] = _classeService.SolicitarEntrada(classeId, userId);
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult Solicitacoes()
+
+        {
+            string userId = User.Identity.GetUserId();
+            List<SolicitacoesEntradaClasse> solicitacoes = _classeService.TodasSolicitacoesPorProfessor(userId);
+
+            return View(solicitacoes);
         }
     }
 }

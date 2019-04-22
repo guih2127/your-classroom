@@ -29,6 +29,10 @@
                     {
                         <li>@Html.ActionLink("Minhas Classes", "Index", "Classes")</li>
                     }
+                    @if (ViewBag.UserRole == "Professor")
+                    {
+                        <li>@Html.ActionLink("Solicitações", "Solicitacoes", "Classes")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -124,5 +124,16 @@ namespace YourClassroom.Services
                 }
             }
         }
+
+        public List<SolicitacoesEntradaClasse> TodasSolicitacoesPorProfessor(string professorId)
+        {
+            List<SolicitacoesEntradaClasse> solicitacoes = (from s in context.SolicitacoesEntradaClasse
+                                                            join c in context.Classes on s.Id_Classe equals c.Id
+                                                            join p in context.AspNetUsers on c.ID_Professor equals p.Id
+                                                            where p.Id == professorId
+                                                            select s).ToList();
+
+            return solicitacoes;
+        }
     }
 }
