@@ -18,11 +18,11 @@
         <th scope="col">Matéria</th>
         <th scope="col">Curso</th>
         <th scope="col">Período</th>
-        @if (ViewBag.UserRole == "Aluno")
+        @if (User.IsInRole("Aluno"))
         {
             <th scope="col">Professor</th>
         }
-        else if (ViewBag.UserRole == "Professor")
+        else if (User.IsInRole("Professor"))
         {
             <th scope="col">Ações</th>
         }

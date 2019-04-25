@@ -29,7 +29,7 @@
                     {
                         <li>@Html.ActionLink("Minhas Classes", "Index", "Classes")</li>
                     }
-                    @if (ViewBag.UserRole == "Professor")
+                    @if (User.IsInRole("Professor"))
                     {
                         <li>@Html.ActionLink("Solicitações", "Solicitacoes", "Classes")</li>
                     }
