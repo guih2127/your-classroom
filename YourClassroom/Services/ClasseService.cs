@@ -135,5 +135,12 @@ namespace YourClassroom.Services
 
             return solicitacoes;
         }
+
+        public void InserirRLClasseAluno(string idAluno, int idClasse)
+        {
+            RLClassesAlunos rLClassesAlunos = new RLClassesAlunos { ID_Aluno = idAluno, ID_Classe = idClasse };
+            context.RLClassesAlunos.Add(rLClassesAlunos);
+            context.SaveChanges();
+        }
     }
 }

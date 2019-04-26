@@ -22,9 +22,14 @@
             <td>@solicitacao.Classes.Materia</td>
             <td>@solicitacao.AspNetUsers.FirstName @solicitacao.AspNetUsers.LastName</td>
             <td>
-                @Html.ActionLink("Aceitar", "Aceitar", new { id = solicitacao.Id }) - 
-                @Html.ActionLink("Recusar", "Recusar", new { id = solicitacao.Id })
+                @Html.ActionLink("Aceitar", "Aceitar", new { idSolicitacao = solicitacao.Id }) - 
+                @Html.ActionLink("Recusar", "Recusar", new { idSolicitacao = solicitacao.Id })
             </td>
         </tr>
     }
 </table>
+<div class="return-button">
+    <a href="@Url.Action("Index", "Home")">
+        <span>Voltar</span>
+    </a>
+</div>

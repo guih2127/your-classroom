@@ -230,6 +230,7 @@
     <Compile Include="Services\ClasseService.cs" />
     <Compile Include="Services\CursoService.cs" />
     <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\SolicitacoesService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

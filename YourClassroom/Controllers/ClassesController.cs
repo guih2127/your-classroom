@@ -16,6 +16,7 @@ namespace YourClassroom.Controllers
         private static UserService _userService = new UserService();
         private static CursoService _cursoService = new CursoService();
         private static HomeController _home = new HomeController();
+        private static SolicitacoesService _solicitacoesService = new SolicitacoesService();
 
         public ActionResult Index()
         {
@@ -138,6 +139,14 @@ namespace YourClassroom.Controllers
             List<SolicitacoesEntradaClasse> solicitacoes = _classeService.TodasSolicitacoesPorProfessor(userId);
 
             return View(solicitacoes);
+        }
+
+        [Authorize(Roles="Professor")]
+        public ActionResult Aceitar(int idSolicitacao)
+        {
+            SolicitacoesEntradaClasse solicitacao = _solicitacoesService.ObterPorId(idSolicitacao);
+            _solicitacoesService.AceitarSolicitacaoAlunoClasse(solicitacao);
+            return RedirectToAction("Solicitacoes");
         }
     }
 }
