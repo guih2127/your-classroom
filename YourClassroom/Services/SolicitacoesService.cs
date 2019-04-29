@@ -46,5 +46,21 @@ namespace YourClassroom.Services
                 }
             }
         }
+
+        public string RecusarSolicitacaoAlunoClasse(SolicitacoesEntradaClasse solicitacao)
+        {
+            using (var context = new YourClassroomEntities())
+            {
+                try
+                {
+                    ApagarSolicitacao(solicitacao.Id);
+                    return "Solicitação recusada com sucesso.";
+                }
+                catch (Exception e)
+                {
+                    return "Ocorreu um problema. " + e.Message;
+                }
+            }
+        }
     }
 }

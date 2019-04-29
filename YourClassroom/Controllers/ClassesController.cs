@@ -133,10 +133,10 @@ namespace YourClassroom.Controllers
 
         [Authorize]
         public ActionResult Solicitacoes()
-
         {
             string userId = User.Identity.GetUserId();
             List<SolicitacoesEntradaClasse> solicitacoes = _classeService.TodasSolicitacoesPorProfessor(userId);
+            ViewBag.Mensagem = TempData["Mensagem"];
 
             return View(solicitacoes);
         }
@@ -145,7 +145,15 @@ namespace YourClassroom.Controllers
         public ActionResult Aceitar(int idSolicitacao)
         {
             SolicitacoesEntradaClasse solicitacao = _solicitacoesService.ObterPorId(idSolicitacao);
-            _solicitacoesService.AceitarSolicitacaoAlunoClasse(solicitacao);
+            TempData["Mensagem"] = _solicitacoesService.AceitarSolicitacaoAlunoClasse(solicitacao);
+            return RedirectToAction("Solicitacoes");
+        }
+
+        [Authorize(Roles="Professor")]
+        public ActionResult Recusar(int idSolicitacao)
+        {
+            SolicitacoesEntradaClasse solicitacao = _solicitacoesService.ObterPorId(idSolicitacao);
+            TempData["Mensagem"] = _solicitacoesService.RecusarSolicitacaoAlunoClasse(solicitacao);
             return RedirectToAction("Solicitacoes");
         }
     }
