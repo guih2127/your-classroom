@@ -1,0 +1,26 @@
+﻿.mensagem-visitante {
+    margin-top: 20px;
+}
+
+article.sessao-professor-boas-vindas {
+    margin-top: 30px;
+}
+
+.imagem-professor-boas-vindas img {
+    width: 100%;
+    height: 10%;
+    transition: 1s ease-in-out;
+}
+
+.imagem-professor-boas-vindas img:hover {
+    opacity: 0.5;
+}
+
+.borda-preta-bottom {
+    border-bottom: 2px solid black;
+    max-width: inherit;
+}
+
+.nome-professor {
+    margin-bottom: 30px;
+}

@@ -62,7 +62,7 @@ namespace YourClassroom.Controllers
             }
             else
             {
-                TempData["Mensagem"] = "Infelizmente um usuário com perfil de Aluno não pode criar classes.";
+                TempData["Mensagem"] = _home.AlertaNotificacao("Infelizmente um usuário com perfil de Aluno não pode criar classes.");
                 return RedirectToAction("Index");
             }
         }
@@ -72,7 +72,7 @@ namespace YourClassroom.Controllers
         public ActionResult Create(Classes classe)
         {
             classe.ID_Professor = User.Identity.GetUserId();
-            TempData["Mensagem"] = _classeService.Inserir(classe);
+            TempData["Mensagem"] = _home.AlertaNotificacao(_classeService.Inserir(classe));
 
             return RedirectToAction("Index");
         }
@@ -91,7 +91,7 @@ namespace YourClassroom.Controllers
             }
             else
             {
-                TempData["Mensagem"] = "Você não tem permissão para acessar essa página!";
+                TempData["Mensagem"] = _home.AlertaNotificacao("Você não tem permissão para acessar essa página!");
                 return RedirectToAction("Index");
             }
         }
@@ -100,7 +100,7 @@ namespace YourClassroom.Controllers
         [HttpPost]
         public ActionResult Edit(int id, Classes classe)
         {
-            TempData["Mensagem"] = _classeService.Editar(id, classe);
+            TempData["Mensagem"] = _home.AlertaNotificacao(_classeService.Editar(id, classe));
             return RedirectToAction("Index");
         }
 
@@ -126,7 +126,7 @@ namespace YourClassroom.Controllers
         public ActionResult SolicitarEntrada(int classeId)
         {
             string userId = User.Identity.GetUserId();
-            TempData["Mensagem"] = _classeService.SolicitarEntrada(classeId, userId);
+            TempData["Mensagem"] = _home.AlertaNotificacao(_classeService.SolicitarEntrada(classeId, userId));
 
             return RedirectToAction("Index");
         }
@@ -145,7 +145,7 @@ namespace YourClassroom.Controllers
         public ActionResult Aceitar(int idSolicitacao)
         {
             SolicitacoesEntradaClasse solicitacao = _solicitacoesService.ObterPorId(idSolicitacao);
-            TempData["Mensagem"] = _solicitacoesService.AceitarSolicitacaoAlunoClasse(solicitacao);
+            TempData["Mensagem"] = _home.AlertaNotificacao(_solicitacoesService.AceitarSolicitacaoAlunoClasse(solicitacao));
             return RedirectToAction("Solicitacoes");
         }
 
@@ -153,7 +153,7 @@ namespace YourClassroom.Controllers
         public ActionResult Recusar(int idSolicitacao)
         {
             SolicitacoesEntradaClasse solicitacao = _solicitacoesService.ObterPorId(idSolicitacao);
-            TempData["Mensagem"] = _solicitacoesService.RecusarSolicitacaoAlunoClasse(solicitacao);
+            TempData["Mensagem"] = _home.AlertaNotificacao(_solicitacoesService.RecusarSolicitacaoAlunoClasse(solicitacao));
             return RedirectToAction("Solicitacoes");
         }
     }

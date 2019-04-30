@@ -38,11 +38,11 @@ namespace YourClassroom.Services
                     _classeService.InserirRLClasseAluno(solicitacao.Id_Aluno, solicitacao.Id_Classe);
                     ApagarSolicitacao(solicitacao.Id);
 
-                    return "Aluno aceito com sucesso.";
+                    return "Sucesso! Aluno aceito com sucesso.";
                 }
                 catch (Exception e)
                 {
-                    return "Ocorreu um problema. " + e.Message;
+                    return "Erro! Ocorreu um problema. " + e.Message;
                 }
             }
         }
@@ -54,11 +54,11 @@ namespace YourClassroom.Services
                 try
                 {
                     ApagarSolicitacao(solicitacao.Id);
-                    return "Solicitação recusada com sucesso.";
+                    return "Sucesso! Solicitação recusada com sucesso.";
                 }
                 catch (Exception e)
                 {
-                    return "Ocorreu um problema. " + e.Message;
+                    return "Erro! Ocorreu um problema. " + e.Message;
                 }
             }
         }

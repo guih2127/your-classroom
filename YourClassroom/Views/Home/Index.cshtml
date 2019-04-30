@@ -1,8 +1,39 @@
 ﻿@model YourClassroom.Models.FiltroClassesViewModel
+<head>
+    <link rel="stylesheet" href="~/Content/Home/Index.css">
+</head>
 @{
     ViewBag.Title = "Home Page";
 }
-<h3>@ViewBag.UserRole</h3>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="nome-perfil borda-preta-bottom">
+        <h2>@ViewBag.UserRole  -  @ViewBag.NomeCompleto</h2>
+    </div>
+}
+else
+{
+    <div class="mensagem-visitante">
+        <p>Cadastre-se ou logue-se agora para poder organizar suas classes facilmente!</p>
+    </div>
+}
+
+@if (ViewBag.UserRole == "Professor")
+{
+    <article class="sessao-professor-boas-vindas">
+        <h3>Seja bem vindo ao YourClassroom!</h3>
+        <p>
+            Conosco, você terá um melhor controle de suas classes de aulas, atividades, alunos e notas!
+            Fique a vontade para fazer sugestões, elogios, críticas e, claro, para utilizar o nosso sistema!
+        </p>
+        <div class="imagem-professor-boas-vindas">
+            <div class="mensagem-boas-vindas-professor-imagem" style="display: none">
+                <span>Aproveite nossos recursos inéditos para manusear e organizar melhor sua sala de aula</span>
+            </div>
+            <img src="~/Content/Imagens/Professor1.jpg" alt="Seja bem vindo!" />
+        </div>
+    </article>
+}
 
 @if (ViewBag.UserRole == "Aluno")
 {
