@@ -58,6 +58,24 @@
           <Property Name="FirstName" Type="nvarchar(max)" />
           <Property Name="LastName" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Atividade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ID_Classe" Type="int" Nullable="false" />
+          <Property Name="ValorTotal" Type="float" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AtividadeAluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ID_Classe" Type="int" />
+          <Property Name="ValorTotal" Type="float" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Classes">
           <Key>
             <PropertyRef Name="Id" />
@@ -94,6 +112,40 @@
           <Property Name="Id_Classe" Type="int" Nullable="false" />
           <Property Name="Id_Aluno" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ID_Aluno" Type="nvarchar" MaxLength="128" />
+          <Property Name="ID_Atividade" Type="int" />
+          <Property Name="Nota" Type="float" />
+          <Property Name="Arquivo" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Atividade__ID_Cl__7849DB76">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="1" />
+          <End Role="Atividade" Type="Self.Atividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Atividade">
+              <PropertyRef Name="ID_Classe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Atividade__ID_Cl__793DFFAF">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
+          <End Role="AtividadeAluno" Type="Self.AtividadeAluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AtividadeAluno">
+              <PropertyRef Name="ID_Classe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Solicitac__Id_Al__634EBE90">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="SolicitacoesEntradaClasse" Type="Self.SolicitacoesEntradaClasse" Multiplicity="*" />
@@ -115,6 +167,30 @@
             </Principal>
             <Dependent Role="SolicitacoesEntradaClasse">
               <PropertyRef Name="Id_Classe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Table__ID_Aluno__7C1A6C5A">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Table" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="ID_Aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Table__ID_Ativid__7D0E9093">
+          <End Role="Atividade" Type="Self.Atividade" Multiplicity="0..1" />
+          <End Role="Table" Type="Self.Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atividade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="ID_Atividade" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -228,10 +304,21 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Atividade" EntityType="Self.Atividade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtividadeAluno" EntityType="Self.AtividadeAluno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RLClassesAlunos" EntityType="Self.RLClassesAlunos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SolicitacoesEntradaClasse" EntityType="Self.SolicitacoesEntradaClasse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Atividade__ID_Cl__7849DB76" Association="Self.FK__Atividade__ID_Cl__7849DB76">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Atividade" EntitySet="Atividade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Atividade__ID_Cl__793DFFAF" Association="Self.FK__Atividade__ID_Cl__793DFFAF">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="AtividadeAluno" EntitySet="AtividadeAluno" />
+          </AssociationSet>
           <AssociationSet Name="FK__Solicitac__Id_Al__634EBE90" Association="Self.FK__Solicitac__Id_Al__634EBE90">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
@@ -239,6 +326,14 @@
           <AssociationSet Name="FK__Solicitac__Id_Cl__625A9A57" Association="Self.FK__Solicitac__Id_Cl__625A9A57">
             <End Role="Classes" EntitySet="Classes" />
             <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Table__ID_Aluno__7C1A6C5A" Association="Self.FK__Table__ID_Aluno__7C1A6C5A">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Table" EntitySet="Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Table__ID_Ativid__7D0E9093" Association="Self.FK__Table__ID_Ativid__7D0E9093">
+            <End Role="Atividade" EntitySet="Atividade" />
+            <End Role="Table" EntitySet="Table" />
           </AssociationSet>
           <AssociationSet Name="FK_CursoClasse" Association="Self.FK_CursoClasse">
             <End Role="Curso" EntitySet="Curso" />
@@ -282,10 +377,13 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Model.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Model.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Model.AspNetUsers" />
+          <EntitySet Name="Atividade" EntityType="Model.Atividade" />
+          <EntitySet Name="AtividadeAluno" EntityType="Model.AtividadeAluno" />
           <EntitySet Name="Classes" EntityType="Model.Classes" />
           <EntitySet Name="Curso" EntityType="Model.Curso" />
           <EntitySet Name="RLClassesAlunos" EntityType="Model.RLClassesAlunos" />
           <EntitySet Name="SolicitacoesEntradaClasse" EntityType="Model.SolicitacoesEntradaClasse" />
+          <EntitySet Name="Table" EntityType="Model.Table" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -298,6 +396,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="SolicitacoesEntradaClasse" EntitySet="SolicitacoesEntradaClasse" />
           </AssociationSet>
+          <AssociationSet Name="FK__Table__ID_Aluno__7C1A6C5A" Association="Model.FK__Table__ID_Aluno__7C1A6C5A">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Table" EntitySet="Table" />
+          </AssociationSet>
           <AssociationSet Name="FK_RLClassesAlunos_ToAluno" Association="Model.FK_RLClassesAlunos_ToAluno">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="RLClassesAlunos" EntitySet="RLClassesAlunos" />
@@ -305,6 +407,18 @@
           <AssociationSet Name="ID_Professor" Association="Model.ID_Professor">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Atividade__ID_Cl__7849DB76" Association="Model.FK__Atividade__ID_Cl__7849DB76">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Atividade" EntitySet="Atividade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Table__ID_Ativid__7D0E9093" Association="Model.FK__Table__ID_Ativid__7D0E9093">
+            <End Role="Atividade" EntitySet="Atividade" />
+            <End Role="Table" EntitySet="Table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Atividade__ID_Cl__793DFFAF" Association="Model.FK__Atividade__ID_Cl__793DFFAF">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="AtividadeAluno" EntitySet="AtividadeAluno" />
           </AssociationSet>
           <AssociationSet Name="FK__Solicitac__Id_Cl__625A9A57" Association="Model.FK__Solicitac__Id_Cl__625A9A57">
             <End Role="Classes" EntitySet="Classes" />
@@ -373,9 +487,31 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="SolicitacoesEntradaClasse" Relationship="Model.FK__Solicitac__Id_Al__634EBE90" FromRole="AspNetUsers" ToRole="SolicitacoesEntradaClasse" />
+          <NavigationProperty Name="Table" Relationship="Model.FK__Table__ID_Aluno__7C1A6C5A" FromRole="AspNetUsers" ToRole="Table" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToAluno" FromRole="AspNetUsers" ToRole="RLClassesAlunos" />
           <NavigationProperty Name="Classes" Relationship="Model.ID_Professor" FromRole="AspNetUsers" ToRole="Classes" />
           <NavigationProperty Name="AspNetRoles" Relationship="Model.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Atividade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ID_Classe" Type="Int32" Nullable="false" />
+          <Property Name="ValorTotal" Type="Double" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Classes" Relationship="Model.FK__Atividade__ID_Cl__7849DB76" FromRole="Atividade" ToRole="Classes" />
+          <NavigationProperty Name="Table" Relationship="Model.FK__Table__ID_Ativid__7D0E9093" FromRole="Atividade" ToRole="Table" />
+        </EntityType>
+        <EntityType Name="AtividadeAluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ID_Classe" Type="Int32" />
+          <Property Name="ValorTotal" Type="Double" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Classes" Relationship="Model.FK__Atividade__ID_Cl__793DFFAF" FromRole="AtividadeAluno" ToRole="Classes" />
         </EntityType>
         <EntityType Name="Classes">
           <Key>
@@ -387,6 +523,8 @@
           <Property Name="Curso_Id" Type="Int32" Nullable="false" />
           <Property Name="Periodo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.ID_Professor" FromRole="Classes" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Atividade" Relationship="Model.FK__Atividade__ID_Cl__7849DB76" FromRole="Classes" ToRole="Atividade" />
+          <NavigationProperty Name="AtividadeAluno" Relationship="Model.FK__Atividade__ID_Cl__793DFFAF" FromRole="Classes" ToRole="AtividadeAluno" />
           <NavigationProperty Name="SolicitacoesEntradaClasse" Relationship="Model.FK__Solicitac__Id_Cl__625A9A57" FromRole="Classes" ToRole="SolicitacoesEntradaClasse" />
           <NavigationProperty Name="Curso" Relationship="Model.FK_CursoClasse" FromRole="Classes" ToRole="Curso" />
           <NavigationProperty Name="RLClassesAlunos" Relationship="Model.FK_RLClassesAlunos_ToClasses" FromRole="Classes" ToRole="RLClassesAlunos" />
@@ -421,6 +559,18 @@
           <Property Name="Id_Aluno" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.FK__Solicitac__Id_Al__634EBE90" FromRole="SolicitacoesEntradaClasse" ToRole="AspNetUsers" />
           <NavigationProperty Name="Classes" Relationship="Model.FK__Solicitac__Id_Cl__625A9A57" FromRole="SolicitacoesEntradaClasse" ToRole="Classes" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ID_Aluno" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Atividade" Type="Int32" />
+          <Property Name="Nota" Type="Double" />
+          <Property Name="Arquivo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK__Table__ID_Aluno__7C1A6C5A" FromRole="Table" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Atividade" Relationship="Model.FK__Table__ID_Ativid__7D0E9093" FromRole="Table" ToRole="Atividade" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -462,6 +612,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Table__ID_Aluno__7C1A6C5A">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="Model.Table" Role="Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="ID_Aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RLClassesAlunos_ToAluno">
           <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="Model.RLClassesAlunos" Role="RLClassesAlunos" Multiplicity="*" />
@@ -483,6 +645,42 @@
             </Principal>
             <Dependent Role="Classes">
               <PropertyRef Name="ID_Professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Atividade__ID_Cl__7849DB76">
+          <End Type="Model.Classes" Role="Classes" Multiplicity="1" />
+          <End Type="Model.Atividade" Role="Atividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Atividade">
+              <PropertyRef Name="ID_Classe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Table__ID_Ativid__7D0E9093">
+          <End Type="Model.Atividade" Role="Atividade" Multiplicity="0..1" />
+          <End Type="Model.Table" Role="Table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Atividade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Table">
+              <PropertyRef Name="ID_Atividade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Atividade__ID_Cl__793DFFAF">
+          <End Type="Model.Classes" Role="Classes" Multiplicity="0..1" />
+          <End Type="Model.AtividadeAluno" Role="AtividadeAluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AtividadeAluno">
+              <PropertyRef Name="ID_Classe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -579,6 +777,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Atividade">
+            <EntityTypeMapping TypeName="Model.Atividade">
+              <MappingFragment StoreEntitySet="Atividade">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="ID_Classe" ColumnName="ID_Classe" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AtividadeAluno">
+            <EntityTypeMapping TypeName="Model.AtividadeAluno">
+              <MappingFragment StoreEntitySet="AtividadeAluno">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="ID_Classe" ColumnName="ID_Classe" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="Model.Classes">
               <MappingFragment StoreEntitySet="Classes">
@@ -615,6 +833,17 @@
               <MappingFragment StoreEntitySet="SolicitacoesEntradaClasse">
                 <ScalarProperty Name="Id_Aluno" ColumnName="Id_Aluno" />
                 <ScalarProperty Name="Id_Classe" ColumnName="Id_Classe" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table">
+            <EntityTypeMapping TypeName="Model.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Arquivo" ColumnName="Arquivo" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="ID_Atividade" ColumnName="ID_Atividade" />
+                <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

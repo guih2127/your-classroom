@@ -29,9 +29,12 @@ namespace YourClassroom.Models
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Atividade> Atividade { get; set; }
+        public virtual DbSet<AtividadeAluno> AtividadeAluno { get; set; }
         public virtual DbSet<Classes> Classes { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<RLClassesAlunos> RLClassesAlunos { get; set; }
         public virtual DbSet<SolicitacoesEntradaClasse> SolicitacoesEntradaClasse { get; set; }
+        public virtual DbSet<Table> Table { get; set; }
     }
 }

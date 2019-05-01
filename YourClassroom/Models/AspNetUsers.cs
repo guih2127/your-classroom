@@ -20,6 +20,7 @@ namespace YourClassroom.Models
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.SolicitacoesEntradaClasse = new HashSet<SolicitacoesEntradaClasse>();
+            this.Table = new HashSet<Table>();
             this.RLClassesAlunos = new HashSet<RLClassesAlunos>();
             this.Classes = new HashSet<Classes>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
@@ -46,6 +47,8 @@ namespace YourClassroom.Models
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SolicitacoesEntradaClasse> SolicitacoesEntradaClasse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Table> Table { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RLClassesAlunos> RLClassesAlunos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
