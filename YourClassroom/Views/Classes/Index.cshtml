@@ -12,35 +12,35 @@
 </div>
 <br />
 
-<table class="table">
+<table class="table tabela-geral">
     <tr class="headers-classes">
-        <th scope="col">Código</th>
-        <th scope="col">Matéria</th>
-        <th scope="col">Curso</th>
-        <th scope="col">Período</th>
+        <th class="headers-classes-codigo" scope="col">Código</th>
+        <th class="headers-classes-materia" scope="col">Matéria</th>
+        <th class="headers-classes-curso" scope="col">Curso</th>
+        <th class="headers-classes-periodo" scope="col">Período</th>
         @if (User.IsInRole("Aluno"))
         {
-            <th scope="col">Professor</th>
+            <th class="headers-classes-professor" scope="col">Professor</th>
         }
         else if (User.IsInRole("Professor"))
         {
-            <th scope="col">Ações</th>
+            <th class="headers-classes-acoes" scope="col">Ações</th>
         }
     </tr>
     @for (int i = 0; i < Model.Classes.Count(); i++)
     {
         <tr class="info-classes">
             <th scope="row">@Model.Classes[i].Id</th>
-            <td>@Model.Classes[i].Materia</td>
-            <td>@Model.Classes[i].Curso.Nome</td>
-            <td>@Model.Classes[i].Periodo</td>
+            <td class="info-classes-materia">@Model.Classes[i].Materia</td>
+            <td class="info-classes-curso">@Model.Classes[i].Curso.Nome</td>
+            <td class="info-classes-periodo">@Model.Classes[i].Periodo</td>
             @if (ViewBag.UserRole == "Aluno")
             {
-                <td>@Model.Professores[i].FirstName  @Model.Professores[i].LastName</td>
+                <td class="info-classes-professor">@Model.Professores[i].FirstName  @Model.Professores[i].LastName</td>
             }
             @if (ViewBag.UserRole == "Professor")
             {
-                <td>@Html.ActionLink("Editar", "Edit", new { id = Model.Classes[i].Id } )</td>
+                <td class="info-classes-editar">@Html.ActionLink("Editar", "Edit", new { id = Model.Classes[i].Id } )</td>
             }
         </tr>
     }

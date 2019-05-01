@@ -1,1 +1,5 @@
-﻿
+﻿@media (max-width: 600px) {
+    .headers-classes-professor, .headers-classes-periodo, .info-classes-periodo, .info-classes-professor {
+        display: none;
+    }
+}

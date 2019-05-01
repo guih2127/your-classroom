@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,9 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.tabela-geral {
+    -webkit-box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
+    box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
 }

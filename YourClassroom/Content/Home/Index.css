@@ -6,6 +6,12 @@ article.sessao-professor-boas-vindas {
     margin-top: 30px;
 }
 
+.imagem-professor-boas-vindas {
+    -webkit-box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
+    box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
+    margin-top: 30px;
+}
+
 .imagem-professor-boas-vindas img {
     width: 100%;
     height: 10%;
@@ -16,11 +22,6 @@ article.sessao-professor-boas-vindas {
     opacity: 0.5;
 }
 
-.borda-preta-bottom {
-    border-bottom: 2px solid black;
-    max-width: inherit;
-}
-
-.nome-professor {
+.nome-professor, .nome-perfil {
     margin-bottom: 30px;
 }
