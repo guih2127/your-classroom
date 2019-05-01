@@ -10,6 +10,7 @@ article.sessao-professor-boas-vindas {
     -webkit-box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
     box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .imagem-professor-boas-vindas img {

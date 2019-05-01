@@ -28,3 +28,23 @@ textarea {
     -webkit-box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
     box-shadow: 1px 0px 8px 6px rgba(9,10,8,0.49);
 }
+
+.botao-basico {
+    background-color: green;
+    color: white;
+    border: 0;
+    padding: 20px;
+    margin: 0px 10px 0px 0px;
+}
+
+.botao-voltar {
+    background-color: black;
+    color: white;
+    border: 0;
+    padding: 20px;
+    margin: 0px 10px 0px 0px;
+}
+
+.lista-botoes {
+    display: flex;
+}

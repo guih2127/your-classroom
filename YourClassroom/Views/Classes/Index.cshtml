@@ -51,17 +51,21 @@
     @if (ViewBag.UserRole == "Professor")
     {
         <p>Lembre-se, para convidar alunos para suas classes, você deve compartilhar o código da classe com eles!</p>
-        <div class="criar-classe">
-            <p>@Html.ActionLink("Criar nova Classe", "Create")</p>
-        </div>
     }
     else if (ViewBag.UserRole == "Aluno")
     {
         <p>Para entrar em classes de professores específicos, você precisa obter o código da classe e solicitar sua entrada!</p>
     }
 </div>
-<div class="return-button">
-    <a href="@Url.Action("Index", "Home")">
-        <span>Voltar</span>
-    </a>
+
+<div class="lista-botoes">
+    <div class="return-button">
+        <input class="botao-voltar" type="button" onclick="location.href='@Url.Action("Index", "Home")'" value="Voltar para a Home" />
+    </div>
+    @if (ViewBag.UserRole == "Professor")
+    {
+        <div class="criar-classe">
+            <input class="botao-basico" type="button" onclick="location.href='@Url.Action("Create")'" value="Criar nova classe" />
+        </div>
+    }
 </div>
