@@ -89,7 +89,7 @@ namespace YourClassroom.Services
             }
             if (filtro.NomeMateria != null)
             {
-                classes = classes.Where(c => c.Materia == filtro.NomeMateria).ToList();
+                classes = classes.Where(c => c.Materia.Contains(filtro.NomeMateria)).ToList();
             }
             if (filtro.ClasseId != null)
             {

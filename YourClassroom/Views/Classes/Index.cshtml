@@ -40,7 +40,10 @@
             }
             @if (ViewBag.UserRole == "Professor")
             {
-                <td class="info-classes-editar">@Html.ActionLink("Editar", "Edit", new { id = Model.Classes[i].Id } )</td>
+                <td class="info-classes-editar">
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Classes[i].Id }) - 
+                    @Html.ActionLink("Detalhes", "Detalhes", new { id = Model.Classes[i].Id })
+                </td>
             }
         </tr>
     }

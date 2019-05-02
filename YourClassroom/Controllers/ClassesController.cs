@@ -156,5 +156,12 @@ namespace YourClassroom.Controllers
             TempData["Mensagem"] = _home.AlertaNotificacao(_solicitacoesService.RecusarSolicitacaoAlunoClasse(solicitacao));
             return RedirectToAction("Solicitacoes");
         }
+
+        [Authorize]
+        public ActionResult Detalhes(int id)
+        {
+            Classes classe = _classeService.ObterClassePorId(id);
+            return View(classe);
+        }
     }
 }
