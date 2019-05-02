@@ -45,6 +45,50 @@ textarea {
     margin: 0px 10px 0px 0px;
 }
 
+.botao-login {
+    background-color: green;
+    color: white;
+    border: 0;
+    padding: 10px 20px 10px 20px;
+    margin: 0px 10px 0px 0px;
+}
+
 .lista-botoes {
     display: flex;
+}
+
+.estilo-label {
+    text-transform: uppercase;
+}
+
+.estilo-input {
+    border-radius: 0px;
+    -webkit-box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
+    box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
+}
+
+.estilo-form {
+    margin-bottom: 30px;
+}
+
+.botao-registrar {
+    float: right;
+}
+
+.estilo-select {
+    padding: 10px;
+    border: 0px;
+    -webkit-box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
+    box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
+}
+
+@media (max-width: 992px) {
+    .botao-registrar {
+        margin-bottom: 30px;
+    }
+}
+
+.sessao-login {
+    -webkit-box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
+    box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
 }

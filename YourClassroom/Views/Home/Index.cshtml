@@ -3,77 +3,79 @@
     <link rel="stylesheet" href="~/Content/Home/Index.css">
 </head>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Início";
 }
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="nome-perfil">
-        <h2>@ViewBag.UserRole  -  @ViewBag.NomeCompleto</h2>
-    </div>
-}
-else
-{
-    <div class="mensagem-visitante">
-        <p>Cadastre-se ou logue-se agora para poder organizar suas classes facilmente!</p>
-    </div>
-}
-
-@if (ViewBag.UserRole == "Professor")
-{
-    <article class="sessao-professor-boas-vindas">
-        <h3>Seja bem vindo ao YourClassroom!</h3>
-        <p>
-            Conosco, você terá um melhor controle de suas classes de aulas, atividades, alunos e notas!
-            Fique a vontade para fazer sugestões, elogios, críticas e, claro, para utilizar o nosso sistema!
-        </p>
-        <div class="imagem-professor-boas-vindas">
-            <div class="mensagem-boas-vindas-professor-imagem" style="display: none">
-                <span>Aproveite nossos recursos inéditos para manusear e organizar melhor sua sala de aula</span>
-            </div>
-            <img src="~/Content/Imagens/Professor1.jpg" alt="Seja bem vindo!" />
-        </div>
-        <div class="criar-classe">
-            <input class="botao-basico" type="button" onclick="location.href='@Url.Action("Create")'" value="Crie agora uma nova classe" />
-        </div>
-    </article>
-}
-
-@if (ViewBag.UserRole == "Aluno")
-{
-    <div class="alert-link">
-        <p>Procure agora classes para entrar!</p>
-        <br />
-    </div>
-    using (Html.BeginForm("Search", "Classes"))
+<div class="col-md-12">
+    @if (User.Identity.IsAuthenticated)
     {
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Número da Classe", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ClasseId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ClasseId, "", new { @class = "text-danger" })
-            </div>
+        <div class="nome-perfil">
+            <h2>@ViewBag.UserRole  -  @ViewBag.NomeCompleto</h2>
         </div>
-        <div class="form-group">
-            @Html.Label("Nome da Matéria", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeMateria, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeMateria, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NomeProfessor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NomeProfessor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Pesquisar" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
     }
-}
+    else
+    {
+        <div class="mensagem-visitante">
+            <p>Cadastre-se ou logue-se agora para poder organizar suas classes facilmente!</p>
+        </div>
+    }
+
+    @if (ViewBag.UserRole == "Professor")
+    {
+        <article class="sessao-professor-boas-vindas">
+            <h3>Seja bem vindo ao YourClassroom!</h3>
+            <p>
+                Conosco, você terá um melhor controle de suas classes de aulas, atividades, alunos e notas!
+                Fique a vontade para fazer sugestões, elogios, críticas e, claro, para utilizar o nosso sistema!
+            </p>
+            <div class="imagem-professor-boas-vindas">
+                <div class="mensagem-boas-vindas-professor-imagem" style="display: none">
+                    <span>Aproveite nossos recursos inéditos para manusear e organizar melhor sua sala de aula</span>
+                </div>
+                <img src="~/Content/Imagens/Professor1.jpg" alt="Seja bem vindo!" />
+            </div>
+            <div class="criar-classe">
+                <input class="botao-basico" type="button" onclick="location.href='@Url.Action("Create")'" value="Crie agora uma nova classe" />
+            </div>
+        </article>
+    }
+
+    @if (ViewBag.UserRole == "Aluno")
+    {
+        <div class="alert-link">
+            <p>Procure agora classes para entrar!</p>
+            <br />
+        </div>
+        using (Html.BeginForm("Search", "Classes"))
+        {
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group estilo-form">
+                    @Html.Label("Número da Classe", htmlAttributes: new { @class = "control-label col-md-2 estilo-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ClasseId, new { htmlAttributes = new { @class = "form-control estilo-input " } })
+                        @Html.ValidationMessageFor(model => model.ClasseId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group estilo-form">
+                    @Html.Label("Nome da Matéria", htmlAttributes: new { @class = "control-label col-md-2 estilo-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NomeMateria, new { htmlAttributes = new { @class = "form-control estilo-input" } })
+                        @Html.ValidationMessageFor(model => model.NomeMateria, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group estilo-form">
+                    @Html.Label("Nome do Professor", htmlAttributes: new { @class = "control-label col-md-2 estilo-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NomeProfessor, new { htmlAttributes = new { @class = "form-control estilo-input" } })
+                        @Html.ValidationMessageFor(model => model.NomeProfessor, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group estilo-form">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Pesquisar" class="botao-basico" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
