@@ -92,3 +92,17 @@ textarea {
     -webkit-box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
     box-shadow: -3px 6px 15px -5px rgba(0,0,0,0.66);
 }
+
+.botao-maior {
+    background-color: green;
+    color: white;
+    border: 0;
+    padding: 20px;
+    margin: 0px 10px 0px 0px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.header-detalhes {
+    margin-bottom: 30px;
+}

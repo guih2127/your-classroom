@@ -1,4 +1,5 @@
-﻿@model YourClassroom.Models.Classes
+﻿@using Microsoft.AspNet.Identity
+@model YourClassroom.Models.Classes
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,57 @@
     <title></title>
 </head>
 <body>
-    <h2>@Model.Materia</h2>
+    <div class="col-md-12">
+        <h2>@Model.Materia</h2>
+        <h4>@Model.AspNetUsers.FirstName @Model.AspNetUsers.LastName</h4>
+        <div class="col-md-4">
+            <div class="lista-alunos">
+                <h3 class="header-detalhes">ALUNOS</h3>
+                <table class="table tabela-geral">
+                    <tr class="headers-classes">
+                        <th class="headers-classes-aluno" scope="col">Aluno</th>
+                    </tr>
+                    @foreach (var aluno in Model.RLClassesAlunos)
+                    {
+                        <tr class="info-classes">
+                            <td class="info-classes-nome">@aluno.AspNetUsers.FirstName @aluno.AspNetUsers.LastName</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="lista-atividades">
+                <h3 class="header-detalhes">ATIVIDADES</h3>
+                <table class="table tabela-geral">
+                    <tr class="headers-classes">
+                        <th class="headers-classes-atividade" scope="col">Atividade</th>
+                        <th class="headers-classes-nota" scope="col">Valor Total</th>
+                    </tr>
+                    @foreach (var atividade in Model.Atividade)
+                    {
+                        <tr class="info-classes">
+                            <td class="info-classes-atividade">@atividade.Nome</td>
+                            <td class="info-classes-nota">@atividade.ValorTotal pontos</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (Model.AspNetUsers.Id == User.Identity.GetUserId())
+        {
+        <div class="col-md-4">
+            <div class="criar-classe">
+                <input class="botao-maior" type="button" onclick="location.href='@Url.Action("Criar", "Atividade", new { id = Model.Id })'" value="Criar nova atividade" />
+            </div>
+        </div>
+        }
+    }
 </body>
 </html>
